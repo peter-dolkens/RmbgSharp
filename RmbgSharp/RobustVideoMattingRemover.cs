@@ -56,6 +56,20 @@ namespace RmbgSharp
         }
 
         /// <summary>
+        /// Remove the background from a single frame. This helper resets the
+        /// internal recurrent states before processing so no temporal
+        /// information is carried over from previous frames.
+        /// </summary>
+        /// <param name="bitmap">Frame to process.</param>
+        /// <param name="downsampleRatio">Downsample ratio used by the model.</param>
+        /// <returns>Bitmap with alpha channel representing foreground.</returns>
+        public Bitmap RemoveBackgroundSingleFrame(Bitmap bitmap, float downsampleRatio = 0.25f)
+        {
+            ResetState();
+            return RemoveBackground(bitmap, downsampleRatio);
+        }
+
+        /// <summary>
         /// Remove the background from a frame using the RVM model.
         /// </summary>
         /// <param name="bitmap">Frame to process.</param>
